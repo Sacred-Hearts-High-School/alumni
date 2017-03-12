@@ -1,0 +1,94 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *
+ *= require_self
+ *= bootstrap_min.css
+ *= require bootstrap_and_overrides
+ */
+
+
+@media print
+{
+	.no-print, .no-print *
+	{
+		display: none !important;
+	}
+
+	-webkit-print-color-adjust: exact;
+}
+
+.container {
+	font-size: 130%;
+}
+
+.plantable {
+	border: 2px double #000000;
+	padding-top: 1px;
+	padding-right: 1px;
+	padding-left: 1px;
+	padding-bottom: 1px;
+	border-collapse: collapse;
+	width: 99%;
+	text-align: center;
+	line-height: 30px;
+	vertical-align: middle;
+	margin-left: auto;
+	margin-right: auto;
+	table-layout: fixed; 
+}
+.plantable tbody tr td {
+	padding: 8px;
+	width: auto;
+	border: 1px solid;
+	text-align: left;
+}
+.plantable th {
+	background-color: #CCCCCC !important;
+	width: auto;
+	text-align: center;
+	border: 1px solid;
+}
+/* 表單第一排標題，設定固定寬度，其他欄位則可隨意變動 */
+th.col1 {
+	width: 17%;
+}
+
+.center {
+	text-align: center;
+}
+
+/* 將表格無效化 */
+.disabler {
+	opacity: 0.2;
+}
+
+
+#sidebar {
+	background: #f9edc5;
+	border: 1px solid #ccc;
+	width: 280px;
+
+	border-radius: 5px;
+	
+	top: 50px;
+	right: 10px;
+	bottom: 10px;
+	position: fixed;
+	float: right;
+	margin: 10px 10px 10px 0;
+	padding: 10px;	
+	z-index: 100;
+
+	overflow: scroll; 
+	box-shadow: 10px 10px 5px #888888;
+}

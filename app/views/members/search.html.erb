@@ -1,0 +1,22 @@
+可以只輸入姓名，或者三個欄位都輸入： <br><br>
+
+
+<%= form_tag search_members_path, method: "get", :class=>"form-horizontal"  do %>         
+	<div class="col-sm-3">
+  		<%= text_field_tag :name, nil,  :class=>'form-control', :placeholder=>"請輸入校友姓名" %> 
+  	</div>
+  	<div class="col-sm-3">	
+  		<%= text_field_tag :birthday, nil,  :class=>'form-control', :placeholder=>"請輸入生日如： 48/12/03" %> 
+	</div>
+	<div class="col-sm-3">
+  		<%= text_field_tag :pid, nil,  :class=>'form-control', :placeholder=>"請輸入身分證字號" %>  
+  	</div>	
+  	<%= submit_tag "搜尋", :class=>"btn btn-primary" %>  
+<% end %>     
+
+
+<br>
+<% if @keyword %>
+	<h2>搜尋「<%= @keyword %>」結果如下</h2>
+	<%= result_str @result %>
+<% end %>	

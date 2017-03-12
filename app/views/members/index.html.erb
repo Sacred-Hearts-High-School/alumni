@@ -1,0 +1,58 @@
+<%- model_class = Member -%>
+<div class="page-header">
+  <h1>校友名單</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>姓名</th>
+      <th>學號</th>
+      <th>身分證</th>
+      <th>生日</th>
+      <th>備註</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= link_to member.id, member_path(member) %></td>
+        <td><%= member.name %></td>
+        <td><%= member.no %></td>
+        <td><%= member.pid %></td>
+        <td><%= member.birthday %></td>
+        <td><%= member.remark %></td>
+        <td>
+          <%= link_to "編輯",
+                      edit_member_path(member), :class => 'btn btn-primary btn-xs' %>
+          <%= link_to "刪除",
+                      member_path(member),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '你確定要刪除這筆資料嗎？')) },
+                      :class => 'btn btn-danger btn-xs' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @members %>
+<br>
+<%= link_to "新增一位校友",
+            new_member_path,
+            :class => 'btn btn-primary' %>
+
+
+      
+<h1>匯入Excel檔案</h1>  
+請準備一個 Excel 檔案，依次為 1.no（學號） 2. name（姓名） 3.birthday（生日，民國年/月/日）  4.pid（身分證字號）。<br>
+且最前方 4 行為標題，第 5 行開始才是資料。
+<br>
+注意本功能將新增與更新校友清單。
+<br>
+<%= form_tag import_members_path, multipart: true do %>  
+  <%= file_field_tag :file %>  
+  <%= submit_tag "匯入", :class=>"btn btn-primary" %>  
+<% end %>             
