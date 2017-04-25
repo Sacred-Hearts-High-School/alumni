@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+  get    'search'  => 'members#search'
+  post   'search'  => 'members#search'
 
   root 'welcome#index'
   
   resources :members do
-  	collection do   # 針對 users 群組進行路由
+  	collection do   # 針對 members 群組進行路由
       post :import
       get :search
       post :search

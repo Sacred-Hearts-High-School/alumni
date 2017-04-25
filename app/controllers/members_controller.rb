@@ -4,6 +4,7 @@ class MembersController < ApplicationController
   before_action :login_required, except: [:new, :create, :success, :search]
   before_action :login_required, :admin_required, except: [:new, :create, :success, :search]
   
+  skip_before_action :verify_authenticity_token, :only=>[:search]
 
   # GET /members
   # GET /members.json
@@ -14,13 +15,21 @@ class MembersController < ApplicationController
   def search
     @keyword = params[:name]
 
+    if (not pid.nil?) and pid.length==10  # 如果身分證字號不是 10 個字元，那就不正確
+      pid = pid.upcase  # 身分證字號自動轉成大寫
+    else
+      pid = nil
+    end       
+    
     if @keyword
-      if params[:pid]
-        @member1 = Member.find_by(:name=>@keyword, :birthday=>params[:birthday], :pid=>params[:pid])
-        @member2 = Member.find_by(:name=>@keyword, :birthday=>params[:birthday])
+      if pid
+        @member1 = Member.find_by(:name=>@keyword, :birthday=>params[:birthday], :pid=>pid)
+        @member1 = nil if @member1 and @member1.pid.length!=10 # 如果身分證字號不是 10 個字元，那就不正確
       end
+      
+      @member2 = Member.find_by(:name=>@keyword, :birthday=>params[:birthday])      
       @members = Member.where(:name=>@keyword)
-      p @members
+      @members = nil if @members and @members.count == 0
     else
       @members = nil
       @member1 = nil
@@ -43,7 +52,7 @@ class MembersController < ApplicationController
     end
 
     # 如果是 API，只返回 json 格式。
-    render json: @result if request.post?
+    render plain: @result if request.post?
 
   end
 
