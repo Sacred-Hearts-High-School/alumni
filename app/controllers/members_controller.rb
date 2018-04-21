@@ -14,7 +14,9 @@ class MembersController < ApplicationController
 
   def search
     @keyword = params[:name]
-
+    pid = params[:pid]
+    birthday = params[:birthday]
+ 
     if (not pid.nil?) and pid.length==10  # 如果身分證字號不是 10 個字元，那就不正確
       pid = pid.upcase  # 身分證字號自動轉成大寫
     else
